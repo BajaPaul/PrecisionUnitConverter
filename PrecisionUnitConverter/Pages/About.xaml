@@ -1,0 +1,99 @@
+﻿<Page
+    x:Class="PrecisionUnitConverter.Pages.About"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+
+    <RelativePanel x:Name="Rpanel">
+        <Rectangle x:Name="RectLayoutCenter" Width="4" Height="12" Fill="Red"   Margin="0" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignTopWithPanel="True"/>
+        <Rectangle x:Name="RectLayoutLeft" Width="4" Height="12" Fill="Green" Margin="0,0,356,0" RelativePanel.LeftOf="RectLayoutCenter" RelativePanel.AlignTopWithPanel="True"/>
+        <Rectangle x:Name="RectLayoutRight" Width="4" Height="12" Fill="Blue"  Margin="356,0,0,0" RelativePanel.RightOf="RectLayoutCenter" RelativePanel.AlignTopWithPanel="True"/>
+        
+        <TextBlock x:Name="TblkPageTitle" Text="TblkPageTitle Text" Margin="16,8" TextAlignment="Center" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.AlignTopWithPanel="True"/>
+        <TextBlock x:Name="TblkAboutBaseUnit" Text="TblkAboutBaseUnit Text" Margin="16,8" TextAlignment="Center" TextWrapping="WrapWholeWords" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.Below="TblkPageTitle"/>
+        <TextBlock x:Name="TblkAboutProgrammer" Text="TblkAboutProgrammer Text" Margin="16,8" TextAlignment="Center" TextWrapping="WrapWholeWords" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.Below="TblkAboutBaseUnit"/>
+        <TextBlock x:Name="TblkAboutPayment" Text="TblkAboutPayment Text" Margin="16,8,16,8" TextAlignment="Center" TextWrapping="WrapWholeWords" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.Below="TblkAboutProgrammer"/>
+
+        <Button x:Name="ButEmail" TabIndex="101" Content="Email Support" Style="{StaticResource ButtonRevealStyle}" Margin="16,8" RelativePanel.AlignHorizontalCenterWith="RectLayoutLeft" RelativePanel.Below="TblkAboutPayment" Tag="mailto:pghilino@live.com?subject=Precision Unit Converter" Click="ButHyperlink_Click"/>
+        <Button x:Name="ButRateApp" TabIndex="102" Content="Please rate and review application" Style="{StaticResource ButtonRevealStyle}" Margin="16,8" RelativePanel.AlignHorizontalCenterWith="RectLayoutRight" RelativePanel.Below="TblkAboutPayment" Click="ButRateApp_Click"/>
+        <Button x:Name="ButAppReset" TabIndex="113" Content="Reset Application &amp; Exit" Style="{StaticResource ButtonRevealStyle}" Margin="16,8" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.Below="ButRateApp" Click="ButAppReset_Click"/>
+
+        <TextBlock x:Name="TblkAboutApp" Text="TblkAboutApp Text" Margin="16,8" TextWrapping="WrapWholeWords" IsTextSelectionEnabled="True" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.Below="ButAppReset"/>
+        <TextBlock x:Name="TblkAboutUnits" Text="TblkAboutUnits Text" Margin="16,8" TextWrapping="WrapWholeWords" IsTextSelectionEnabled="True" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.Below="TblkAboutApp"/>
+        <TextBlock x:Name="TblkAboutDisclaim" Text="TblkAboutDisclaim Text" Margin="16,8" TextWrapping="WrapWholeWords" IsTextSelectionEnabled="True" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.Below="TblkAboutUnits"/>
+        <TextBlock x:Name="TblkAboutLinks" Text="TblkAboutLinks Text" Margin="16,8,16,8" TextAlignment="Center" TextWrapping="WrapWholeWords" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.Below="TblkAboutDisclaim"/>
+
+        <Button x:Name="ButConversionOfUnits" TabIndex="104" Content="Conversion of Units" Style="{StaticResource ButtonRevealStyle}" Margin="16,8" RelativePanel.AlignHorizontalCenterWith="RectLayoutLeft" RelativePanel.Below="TblkAboutLinks" Tag="https://en.wikipedia.org/wiki/Conversion_of_units" Click="ButHyperlink_Click"/>
+        <Button x:Name="ButInternationalSystemOfUnits" TabIndex="105" Content="International System of Units (SI)" Style="{StaticResource ButtonRevealStyle}" Margin="16,8" RelativePanel.AlignHorizontalCenterWith="RectLayoutRight" RelativePanel.Below="TblkAboutLinks" Tag="https://en.wikipedia.org/wiki/International_System_of_Units" Click="ButHyperlink_Click"/>
+        <Button x:Name="ButUnitedStatesCustomaryUnits" TabIndex="106" Content="United States Customary Units (US)" Style="{StaticResource ButtonRevealStyle}" Margin="16,8" RelativePanel.AlignHorizontalCenterWith="RectLayoutLeft" RelativePanel.Below="ButInternationalSystemOfUnits" Tag="https://en.wikipedia.org/wiki/United_States_customary_units" Click="ButHyperlink_Click"/>
+        <Button x:Name="ButImperialUnits" TabIndex="107" Content="Imperial Units (IMP)" Style="{StaticResource ButtonRevealStyle}" Margin="16,8" RelativePanel.AlignHorizontalCenterWith="RectLayoutRight" RelativePanel.Below="ButInternationalSystemOfUnits" Tag="https://en.wikipedia.org/wiki/Imperial_units" Click="ButHyperlink_Click"/>
+        <Button x:Name="ButAvoirdupois" TabIndex="108" Content="Avoirdupois Units" Style="{StaticResource ButtonRevealStyle}" Margin="16,8" RelativePanel.AlignHorizontalCenterWith="RectLayoutLeft" RelativePanel.Below="ButImperialUnits" Tag="https://en.wikipedia.org/wiki/Avoirdupois" Click="ButHyperlink_Click"/>
+        <Button x:Name="ButMetricPrefixes" TabIndex="109" Content="Metric Prefixes" Style="{StaticResource ButtonRevealStyle}" Margin="16,8" RelativePanel.AlignHorizontalCenterWith="RectLayoutRight" RelativePanel.Below="ButImperialUnits" Tag="https://en.wikipedia.org/wiki/Metric_prefix" Click="ButHyperlink_Click"/>
+        <Button x:Name="ButMetricationUnitedStates" TabIndex="110" Content="Metrication in United States" Style="{StaticResource ButtonRevealStyle}" Margin="16,8,16,24" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.Below="ButMetricPrefixes" Tag="https://en.wikipedia.org/wiki/Metrication_in_the_United_States" Click="ButHyperlink_Click"/>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+
+                <!-- Wide Layout: Wide double-column layout. This default layout is set in XAML code above. -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource VisualStateMedium}"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!-- Do nothing here since XAML settings above set the wide layout.  This wide trigger is required. -->
+                    </VisualState.Setters>
+                </VisualState>
+
+                <!-- Medium Layout: Condensed double-column layout. -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource VisualStateNarrow}"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--Margin Setting Order: left, top, right, bottom-->
+                        <Setter Target="RectLayoutLeft.Margin" Value="0,0,260,0"/>
+                        <Setter Target="RectLayoutRight.Margin" Value="260,0,0,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <!-- Narrow Layout: Condensed single-column layout. -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ButEmail.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="ButRateApp.(RelativePanel.Below)" Value="ButEmail"/>
+                        <Setter Target="ButRateApp.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="ButConversionOfUnits.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="ButInternationalSystemOfUnits.(RelativePanel.Below)" Value="ButConversionOfUnits"/>
+                        <Setter Target="ButInternationalSystemOfUnits.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="ButUnitedStatesCustomaryUnits.(RelativePanel.Below)" Value="ButInternationalSystemOfUnits"/>
+                        <Setter Target="ButUnitedStatesCustomaryUnits.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="ButImperialUnits.(RelativePanel.Below)" Value="ButUnitedStatesCustomaryUnits"/>
+                        <Setter Target="ButImperialUnits.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="ButAvoirdupois.(RelativePanel.Below)" Value="ButImperialUnits"/>
+                        <Setter Target="ButAvoirdupois.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="ButMetricPrefixes.(RelativePanel.Below)" Value="ButAvoirdupois"/>
+                        <Setter Target="ButMetricPrefixes.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <!--Margin Setting Order: left, top, right, bottom-->
+                        <Setter Target="ButEmail.Margin" Value="16,4,16,4"/>
+                        <Setter Target="ButRateApp.Margin" Value="16,4,16,4"/>
+                        <Setter Target="ButAppReset.Margin" Value="16,4,16,4"/>
+                        <Setter Target="ButConversionOfUnits.Margin" Value="16,4,16,4"/>
+                        <Setter Target="ButInternationalSystemOfUnits.Margin" Value="16,4,16,4"/>
+                        <Setter Target="ButUnitedStatesCustomaryUnits.Margin" Value="16,4,16,4"/>
+                        <Setter Target="ButImperialUnits.Margin" Value="16,4,16,4"/>
+                        <Setter Target="ButAvoirdupois.Margin" Value="16,4,16,4"/>
+                        <Setter Target="ButMetricPrefixes.Margin" Value="16,4,16,4"/>
+                        <Setter Target="ButMetricationUnitedStates.Margin" Value="16,4,16,24"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </RelativePanel>
+</Page>

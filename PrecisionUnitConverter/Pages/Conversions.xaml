@@ -1,0 +1,127 @@
+﻿<Page
+    x:Class="PrecisionUnitConverter.Pages.Conversions"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+        
+    <Page.Resources>
+        <!-- Set minimum width of XAML items.  Value of 290 allows maximum number of decimal type digits with added separators ','. -->
+        <x:Double x:Key="MinWidth">290</x:Double>
+        <!-- Set minimum width of split buttons ButAboutConversion and ButAboutOutputUnit. Equals (CboxWidth-20)/2 = 135. -->
+        <x:Double x:Key="MinWidthSplit">135</x:Double>
+        <!-- Set minimum height of XAML items. XAML Default for items are 32 or 32.8 so set this value slightly more. -->
+        <x:Double x:Key="MinHeight">34</x:Double>
+    </Page.Resources>
+    
+    <!-- Margin Setting Order: left, top, right, bottom -->
+
+    <RelativePanel x:Name="Rpanel">
+        <Rectangle x:Name="RectLayoutCenter" Width="4" Height="12" Fill="Red"   Margin="0" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignTopWithPanel="True"/>
+        <Rectangle x:Name="RectLayoutLeft" Width="4" Height="12" Fill="Green" Margin="0,0,356,0" RelativePanel.LeftOf="RectLayoutCenter" RelativePanel.AlignTopWithPanel="True"/>
+        <Rectangle x:Name="RectLayoutRight" Width="4" Height="12" Fill="Blue"  Margin="356,0,0,0" RelativePanel.RightOf="RectLayoutCenter" RelativePanel.AlignTopWithPanel="True"/>
+
+        <TextBlock x:Name="TblkPageTitle" Text="Application Conversions" Margin="4,8,4,8" TextAlignment="Center" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.AlignTopWithPanel="True"/>
+
+        <ComboBox x:Name="CboxConvertType" TabIndex="101" PlaceholderText="ConvertType" Margin="4,8,4,8" MinWidth="{StaticResource MinWidth}" MinHeight="{StaticResource MinHeight}" RelativePanel.AlignHorizontalCenterWith="RectLayoutLeft" RelativePanel.Below="TblkPageTitle" SelectionChanged="CboxConvertType_SelectionChanged"/>
+        <Button x:Name="ButInvertUnits" TabIndex="102" Content="Swap Input and Output" Margin="4,8,4,8" MinWidth="{StaticResource MinWidth}" MinHeight="{StaticResource MinHeight}" Style="{StaticResource ButtonRevealStyle}" RelativePanel.AlignHorizontalCenterWith="RectLayoutRight" RelativePanel.Below="TblkPageTitle" Click="ButInvertUnits_Click"/>
+        
+        <TextBlock x:Name="TblkConvertInput" Text="Input" Margin="4,8,4,8" TextAlignment="Center" RelativePanel.AlignHorizontalCenterWith="RectLayoutLeft" RelativePanel.Below="ButInvertUnits"/>
+        <TextBlock x:Name="TblkConvertOutput" Text="Output" Margin="4,8,4,8" TextAlignment="Center" RelativePanel.AlignHorizontalCenterWith="RectLayoutRight" RelativePanel.Below="ButInvertUnits"/>
+
+        <ComboBox x:Name="CboxConvertInput" TabIndex="103" PlaceholderText="ConvertIn" Margin="4,8,4,8" MinWidth="{StaticResource MinWidth}" MinHeight="{StaticResource MinHeight}" RelativePanel.AlignHorizontalCenterWith="RectLayoutLeft" RelativePanel.Below="TblkConvertInput" SelectionChanged="CboxConvertInput_SelectionChanged"/>
+        <TextBox x:Name="TboxInput" TabIndex="104" PlaceholderText="Input Value" Margin="4,8,4,8" MinWidth="{StaticResource MinWidth}" MinHeight="{StaticResource MinHeight}" InputScope="CurrencyAmountAndSymbol" RelativePanel.AlignHorizontalCenterWith="RectLayoutLeft" RelativePanel.Below="CboxConvertInput" KeyDown="TboxInput_KeyDown" LostFocus="TboxInput_LostFocus" TextChanged="TboxInput_TextChanged"/>
+
+        <ComboBox x:Name="CboxConvertOutput" TabIndex="105" PlaceholderText="ConvertOut" Margin="4,8,4,8" MinWidth="{StaticResource MinWidth}" MinHeight="{StaticResource MinHeight}" RelativePanel.AlignHorizontalCenterWith="RectLayoutRight" RelativePanel.Below="TblkConvertOutput" SelectionChanged="CboxConvertOutput_SelectionChanged"/>
+        <TextBox x:Name="TboxOutput" TabIndex="106" Text="Output Value" Margin="4,8,4,8" MinWidth="{StaticResource MinWidth}" MinHeight="{StaticResource MinHeight}" IsReadOnly="True" RelativePanel.AlignHorizontalCenterWith="RectLayoutRight" RelativePanel.Below="CboxConvertOutput" KeyDown="TboxOutput_KeyDown"/>
+
+        <Button x:Name="ButRoundingToggle" TabIndex="107" Content="Output Rounding On" Margin="4,16,4,8" MinWidth="{StaticResource MinWidth}" MinHeight="{StaticResource MinHeight}" Style="{StaticResource ButtonRevealStyle}" RelativePanel.AlignHorizontalCenterWith="RectLayoutLeft" RelativePanel.Below="TboxOutput" Click="ButRoundingToggle_Click"/>
+        <Button x:Name="ButFormatToggle" TabIndex="108" Content="Output Toggle" Margin="4,16,4,8" MinWidth="{StaticResource MinWidth}" MinHeight="{StaticResource MinHeight}" Style="{StaticResource ButtonRevealStyle}" RelativePanel.AlignHorizontalCenterWith="RectLayoutRight" RelativePanel.Below="TboxOutput" Click="ButOutputToggle_Click"/>
+
+        <Button x:Name="ButAboutConversion" TabIndex="109" Content="Conversion Link" Margin="4,8,0,8" MinWidth="{StaticResource MinWidthSplit}" MinHeight="{StaticResource MinHeight}" Style="{StaticResource ButtonRevealStyle}" RelativePanel.AlignLeftWith="ButRoundingToggle" RelativePanel.Below="ButFormatToggle" Click="ButHyperlink_Click"/>
+        <Button x:Name="ButAboutOutputUnit" TabIndex="110" Content="Output Unit Link" Margin="0,8,4,8" MinWidth="{StaticResource MinWidthSplit}" MinHeight="{StaticResource MinHeight}" Style="{StaticResource ButtonRevealStyle}" RelativePanel.AlignRightWith="ButRoundingToggle" RelativePanel.Below="ButFormatToggle" Click="ButHyperlink_Click"/>
+        <Border x:Name="BdrError" Margin="4,8,4,8" BorderThickness="2" MinWidth="{StaticResource MinWidth}" MinHeight="{StaticResource MinHeight}" RelativePanel.AlignHorizontalCenterWith="RectLayoutRight" RelativePanel.Below="ButFormatToggle">
+            <TextBlock x:Name="TblkError" Text="Error Message" Margin="8,4"/>
+        </Border>
+        
+        <!-- Next 3 items only used for application purchase processes. -->
+        <ProgressBar x:Name="PBarStatus" IsIndeterminate="False" Margin="4,4,4,4" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.Below="ButAboutOutputUnit"/>
+        <TextBlock x:Name="TblkPurchaseApp" Text="TblkPurchaseApp Text" Margin="24,8,24,8" TextAlignment="Center" TextWrapping="WrapWholeWords" IsTextSelectionEnabled="True" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.Below="PBarStatus"/>
+        <Button Name="ButPurchaseApp" Content="Purchase Application" TabIndex="111" Margin="4,8,4,8" MinWidth="{StaticResource MinWidth}" MinHeight="{StaticResource MinHeight}" Style="{StaticResource ButtonRevealStyle}" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.Below="TblkPurchaseApp" Click="ButPurchaseApp_Click"/>
+        
+        <!-- Only show next button occasionally if User has not attempted to rate App yet by selecting this button to rate App. -->
+        <Button x:Name="ButRateApp" TabIndex="112" Content="Please rate and review application" Margin="4,8,4,16" MinWidth="{StaticResource MinWidth}" MinHeight="{StaticResource MinHeight}" Style="{StaticResource ButtonRevealStyle}" RelativePanel.AlignHorizontalCenterWith="RectLayoutCenter" RelativePanel.Below="ButPurchaseApp" Click="ButRateApp_Click"/>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+
+                <!--Wide Layout: Wide double-column layout. This default layout and is set by XAML code above.-->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource VisualStateMedium}"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--Do nothing here since XAML settings above sets wide and medium layout.  This wide trigger is required.-->
+                    </VisualState.Setters>
+                </VisualState>
+
+                <!--Medium Layout: Condensed double-column layout.-->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource VisualStateNarrow}"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--Margin Setting Order: left, top, right, bottom-->
+                        <Setter Target="TblkPageTitle.Margin" Value="4,4,4,8"/>
+                        <Setter Target="TblkConvertInput.Margin" Value="4,4,4,4"/>
+                        <Setter Target="TblkConvertOutput.Margin" Value="4,4,4,4"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <!--Narrow Layout: Condensed single-column layout.-->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="CboxConvertType.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="ButInvertUnits.(RelativePanel.Below)" Value="CboxConvertType"/>
+                        <Setter Target="ButInvertUnits.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <!-- Input unit group -->
+                        <Setter Target="TblkConvertInput.(RelativePanel.Below)" Value="ButInvertUnits"/>
+                        <Setter Target="TblkConvertInput.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="CboxConvertInput.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="TboxInput.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <!-- Output unit group -->
+                        <Setter Target="TblkConvertOutput.(RelativePanel.Below)" Value="TboxInput"/>
+                        <Setter Target="TblkConvertOutput.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="CboxConvertOutput.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="TboxOutput.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <!-- Buttons and error message box. Keep ButFormatToggle below TboxOutput, this requires a button swap. -->
+                        <Setter Target="ButFormatToggle.(RelativePanel.Below)" Value="TboxOutput"/>
+                        <Setter Target="ButFormatToggle.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="ButFormatToggle.TabIndex" Value="107"/>
+                        <Setter Target="ButRoundingToggle.(RelativePanel.Below)" Value="ButFormatToggle"/>
+                        <Setter Target="ButRoundingToggle.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="ButRoundingToggle.TabIndex" Value="108"/>
+                        <Setter Target="ButAboutConversion.(RelativePanel.Below)" Value="ButRoundingToggle"/>
+                        <Setter Target="ButAboutConversion.(RelativePanel.AlignLeftWith)" Value="ButRoundingToggle"/>
+                        <Setter Target="ButAboutOutputUnit.(RelativePanel.Below)" Value="ButRoundingToggle"/>
+                        <Setter Target="ButAboutOutputUnit.(RelativePanel.AlignRightWith)" Value="ButRoundingToggle"/>
+                        <Setter Target="BdrError.(RelativePanel.Below)" Value="ButAboutOutputUnit"/>
+                        <Setter Target="BdrError.(RelativePanel.AlignHorizontalCenterWith)" Value="RectLayoutCenter"/>
+                        <Setter Target="PBarStatus.(RelativePanel.Below)" Value="BdrError"/>
+                        <!--Margin Setting Order: left, top, right, bottom-->
+                        <Setter Target="TblkPageTitle.Margin" Value="4,4,4,8"/>
+                        <Setter Target="TblkConvertInput.Margin" Value="4,4,4,4"/>
+                        <Setter Target="TblkConvertOutput.Margin" Value="4,4,4,4"/>
+                        <Setter Target="ButRoundingToggle.Margin" Value="4,8,4,8"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </RelativePanel>
+</Page>
